@@ -3,9 +3,9 @@ import { BytesLike } from "ethers";
 import { expect } from "chai";
 import { encoder } from "../scripts/utility/utils";
 import { getPrecomputedAddress, deployWithCreat2 } from "../scripts/deployment/Create2Deployer";
-import { TetherTokenBB__factory } from "../typechain-types";
+import { TetherTokenUSDT__factory } from "../typechain-types";
 
-describe("TetherTokenBB Tests", async () => {
+describe("TetherTokenUSDT Tests", async () => {
 
   let create2DeployerAddress: string;
   let salt = ethers.keccak256(ethers.toUtf8Bytes("buckbeak"));
@@ -20,7 +20,7 @@ describe("TetherTokenBB Tests", async () => {
   before(async function () {
 
     owner = (await ethers.getSigners())[0]?.address
-    initByteCode = TetherTokenBB__factory.bytecode + encoder(
+    initByteCode = TetherTokenUSDT__factory.bytecode + encoder(
       ['uint256', 'string', 'string', 'uint256', 'address'], 
       [initialSupply, name, symbol, decimals, owner]
     );
@@ -95,7 +95,7 @@ describe("TetherTokenBB Tests", async () => {
 
   it("Should get the owner of the contract", async () => {
       
-    const tether = TetherTokenBB__factory.connect(tetherAddress, (await ethers.getSigners())[0]);
+    const tether = TetherTokenUSDT__factory.connect(tetherAddress, (await ethers.getSigners())[0]);
     const retrievedOwner = await tether.owner();
 
     expect(retrievedOwner).to.equal(owner);
@@ -106,7 +106,7 @@ describe("TetherTokenBB Tests", async () => {
 
     const user = (await ethers.getSigners())[1];
 
-    const tether = TetherTokenBB__factory.connect(tetherAddress, user);
+    const tether = TetherTokenUSDT__factory.connect(tetherAddress, user);
     const balanceBefore = await tether.balanceOf(user.address);
 
     const totalSupplyBefore = await tether.totalSupply();
@@ -129,7 +129,7 @@ describe("TetherTokenBB Tests", async () => {
 
     const user = (await ethers.getSigners())[1];
 
-    const tether = TetherTokenBB__factory.connect(tetherAddress, user);
+    const tether = TetherTokenUSDT__factory.connect(tetherAddress, user);
     const minEtherRequired = await tether.minEther();
     
     const tx = tether.mint({value: (minEtherRequired - 1n)});
@@ -140,7 +140,7 @@ describe("TetherTokenBB Tests", async () => {
   it("Owner should be able to set mint parameters", async () => {
 
     const owner = (await ethers.getSigners())[0];
-    const tether = TetherTokenBB__factory.connect(tetherAddress, owner);
+    const tether = TetherTokenUSDT__factory.connect(tetherAddress, owner);
     const tx = await tether.setMintParams(1000, ethers.parseEther("1"));
     const receipt = await tx.wait()
     if (!receipt!.status) {
@@ -158,7 +158,7 @@ describe("TetherTokenBB Tests", async () => {
   it("Non-Owner should not be able to set mint parameters", async () => {
 
     const nonOwner = (await ethers.getSigners())[1];
-    const tether = TetherTokenBB__factory.connect(tetherAddress, nonOwner);
+    const tether = TetherTokenUSDT__factory.connect(tetherAddress, nonOwner);
     const tx = tether.setMintParams(1000, ethers.parseEther("1"));
     expect(tx).to.be.revertedWithoutReason();
 
@@ -169,7 +169,7 @@ describe("TetherTokenBB Tests", async () => {
     const receiverAddress = (await ethers.getSigners())[2]?.address;
 
     const owner = (await ethers.getSigners())[0];
-    const tether = TetherTokenBB__factory.connect(tetherAddress, owner);
+    const tether = TetherTokenUSDT__factory.connect(tetherAddress, owner);
 
     const balanceBefore = await ethers.provider.getBalance(receiverAddress);
     const contractBalanceBefore = await ethers.provider.getBalance(tetherAddress);
@@ -193,7 +193,7 @@ describe("TetherTokenBB Tests", async () => {
   it("Non-Owner should not be able to withdraw funds", async () => {
 
     const nonOwner = (await ethers.getSigners())[1];
-    const tether = TetherTokenBB__factory.connect(tetherAddress, nonOwner);
+    const tether = TetherTokenUSDT__factory.connect(tetherAddress, nonOwner);
     const tx = tether.withdrawEth(nonOwner.address)
     expect(tx).to.be.revertedWithoutReason();
 

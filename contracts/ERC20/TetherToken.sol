@@ -455,12 +455,12 @@ contract TetherToken is Pausable, StandardToken, BlackList {
     event Params(uint feeBasisPoints, uint maxFee);
 }
 
-contract TetherTokenBB is TetherToken {
+contract TetherTokenUSDT is TetherToken {
 
     uint public conversionRate = 100;
     uint public minEther = 0.1 ether;
     
-    function TetherTokenBB(
+    function TetherTokenUSDT(
         uint _initialSupply, 
         string _name, 
         string _symbol, 

@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import { encoder } from "./utility/utils";
 import { getPrecomputedAddress, deployWithCreat2 } from "./deployment/Create2Deployer";
-import { TetherTokenBB__factory } from "../typechain-types";
+import { TetherTokenUSDT__factory } from "../typechain-types";
 
 export async function deployTetherToken(): Promise<string> {
   
@@ -17,7 +17,7 @@ export async function deployTetherToken(): Promise<string> {
   const decimals = 6;
   const owner = (await ethers.getSigners())[0].address
 
-  const initByteCode = TetherTokenBB__factory.bytecode + encoder(
+  const initByteCode = TetherTokenUSDT__factory.bytecode + encoder(
     ['uint256', 'string', 'string', 'uint256', 'address'], 
     [initialSupply, name, symbol, decimals, owner]
   );
