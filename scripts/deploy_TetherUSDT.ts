@@ -15,7 +15,7 @@ export async function deployTetherToken(): Promise<string> {
   const name = "Tether USD";
   const symbol = "USDT";
   const decimals = 6;
-  const owner = (await ethers.getSigners())[0].address
+  const owner = process.env.OWNER_ADDRESS;
 
   const initByteCode = TetherTokenUSDT__factory.bytecode + encoder(
     ['uint256', 'string', 'string', 'uint256', 'address'], 

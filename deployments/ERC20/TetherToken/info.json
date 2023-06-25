@@ -1,0 +1,23 @@
+{
+  "goerli": {
+    "address": "0xae3cCFa96D0E845CD2dC2bac354440b4A16066a4",
+    "deployer": "0xae3cCFa96D0E845CD2dC2bac354440b4A16066a4",
+    "owner": "0xd47788c834248baDb032889974194f430a1C2308",
+    "chainId": 5,
+    "deployedAtNonce": 2
+  },
+  "mumbai": {
+    "address": "0xae3cCFa96D0E845CD2dC2bac354440b4A16066a4",
+    "deployer": "0xae3cCFa96D0E845CD2dC2bac354440b4A16066a4",
+    "owner": "0xd47788c834248baDb032889974194f430a1C2308",
+    "chainId": 80001,
+    "deployedAtNonce": 1
+  },
+  "sepolia": {
+    "address": "0xae3cCFa96D0E845CD2dC2bac354440b4A16066a4",
+    "deployer": "0xae3cCFa96D0E845CD2dC2bac354440b4A16066a4",
+    "owner": "0xd47788c834248baDb032889974194f430a1C2308",
+    "chainId": 11155111,
+    "deployedAtNonce": 1
+  }
+}
